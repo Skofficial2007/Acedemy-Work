@@ -1,0 +1,19 @@
+strlen - Finds length of a string
+strlwr - Converts a string to lowercase
+strupr - Converts a string to uppercase
+strcat - Appends one string at the end of another
+strncat - Appends first n characters of a string at the end of another
+strcpy - Copies a string into another
+strncpy - Copies first n characters of one string into another
+strcmp - Compares two strings
+strncmp - Compares first n characters of two strings
+strcmpi - Compares two strings without regard to case ("i" denotes that this function ignores case)
+stricmp - Compares two strings without regard to case (identical to strcmpi)
+strnicmp - Compares first n characters of two strings without regard to case
+strdup - Duplicates a string
+strchr - Finds first occurrence ofa given character in a string
+strrchr - Finds last occurrence ofa given character in a string
+strstr - Finds first occurrence of a given string in another string
+strset - Sets all characters ofstring to a given character
+strnset - Sets first n characters ofa string to a given character
+strrev - Reverses string
