@@ -10,6 +10,7 @@ No of chances will be equal to number of digits
 #include <stdlib.h>
 #include <time.h>
 #include <math.h>
+#include <string.h>
 
 // To create a random number according to level of difficulty and save the digits in the array
 int randomizer(int *difficulty, int *num, int a[], int *count)
@@ -22,6 +23,7 @@ int randomizer(int *difficulty, int *num, int a[], int *count)
         do
         {
             temp = rand()%1000;
+            temp = temp - rand()%800;
         } while (temp < 100);
 
         i = 2;
@@ -32,6 +34,7 @@ int randomizer(int *difficulty, int *num, int a[], int *count)
         do
         {
             temp = rand()%10000;
+            temp = temp - rand()%8000;
         } while (temp < 1000);
 
         i = 3;
@@ -42,6 +45,7 @@ int randomizer(int *difficulty, int *num, int a[], int *count)
         do
         {
             temp = rand()%100000;
+            temp = temp - rand()%80000;
         } while (temp < 10000);
 
         i = 4;
@@ -53,6 +57,7 @@ int randomizer(int *difficulty, int *num, int a[], int *count)
         do
         {
             temp = rand()%1000;
+            temp = temp - rand()%800;
         } while (temp < 100);
 
         i = 2;
@@ -176,7 +181,87 @@ void perfectInput(int array[], int inputArray[], int digits, int perfectPosition
 }
 
 // To find input numbers at wrong position and give a hint
-void rightInput_wrongPos(int array[], int inputArray[], int digits)
+// void rightInput_wrongPos(int array[], int inputArray[], int digits)
+// {
+//     int flag = 0;
+//     printf("\n\nThe position shown as stars are completely wrong, try something else\n");
+
+//     for(int i = 0; i < digits; i++)
+//     {
+//         for(int j = 0; j < digits; j++)
+//         {
+//             if(array[i] == inputArray[j])
+//             {
+//                 if(i != j)
+//                 {
+//                     if(flag != 1)
+//                     {
+//                         printf("\nNumbers at wrong position and hints to fix them: \n");
+//                         printf("\n======================================================\n");
+//                         flag = 1;
+//                     }
+
+//                     printf("\nInputed number %d is right but the position is wrong,%d\n", array[i],i);
+                    
+//                     if(i < j)
+//                     {
+//                         printf("\nNumber %d should be on futher left\n", array[i]);
+//                     }
+//                     else
+//                     {
+//                         printf("\nNumber %d should be on futher right\n", array[i]);
+//                     }
+
+//                     printf("\n======================================================\n");
+//                 }
+//             }
+//         }
+//     }
+// }
+
+// void rightInput_wrongPos(int array[], int inputArray[], int digits, int NeedChanges[], int n)
+// {
+//     int flag = 0;
+//     printf("\n\nThe position shown as stars are completely wrong, try something else\n");
+
+//     for(int i = 0; i < digits; i++)
+//     {
+//         for(int j = 0; j < n; j++)
+//         {
+//             if(array[i] == NeedChanges[j])
+//             {
+//                 if(flag != 1)
+//                 {
+//                     printf("\nNumbers at wrong position and hints to fix them: \n");
+//                     printf("\n======================================================\n");
+//                     flag = 1;
+//                 }
+
+//                 printf("\nInputed number %d is right but the position is wrong,%d\n", array[i],i);
+
+//                 // if(i < j)
+//                 // {
+//                 //     printf("\nNumber %d should be on futher left\n", array[i]);
+//                 // }
+//                 // else
+//                 // {
+//                 //     printf("\nNumber %d should be on futher right\n", array[i]);
+//                 // }
+                
+//                 printf("\n======================================================\n");
+//             }
+//         }
+//     }
+
+//     printf("\n\nNeed Changes Array:");
+//     for(int i = 0; i < n; i++)
+//     {
+//         printf(" %d ", NeedChanges[i]);
+//     }
+//     printf("\n\n");
+// }
+
+void rightInput_wrongPos(int array[], int inputArray[], int digits, int NeedChanges[], int n)
 {
     int flag = 0;
     printf("\n\nThe position shown as stars are completely wrong, try something else\n");
@@ -187,27 +272,33 @@ void rightInput_wrongPos(int array[], int inputArray[], int digits)
         {
             if(array[i] == inputArray[j])
             {
-                if(i != j)
+                for(int k = 0; k < n; k++)
                 {
-                    if(flag != 1)
+                    if(i == NeedChanges[k])
                     {
-                        printf("\nNumbers at wrong position and hints to fix them: \n");
-                        printf("\n======================================================\n");
-                        flag = 1;
-                    }
+                        if(i != j)
+                        {
+                            if(flag != 1)
+                            {
+                                printf("\nNumbers at wrong position and hints to fix them: \n");
+                                printf("\n======================================================\n");
+                                flag = 1;
+                            }
 
-                    printf("\nInputed number %d is right but the position is wrong\n", array[i]);
-                    
-                    if(i < j)
-                    {
-                        printf("\nNumber %d should be on futher left\n", array[i]);
-                    }
-                    else
-                    {
-                        printf("\nNumber %d should be on futher right\n", array[i]);
-                    }
+                            printf("\nInputed number %d is right but the position is wrong,%d\n", array[i],i);
+                            
+                            if(i < j)
+                            {
+                                printf("\nNumber %d should be on futher left\n", array[i]);
+                            }
+                            else
+                            {
+                                printf("\nNumber %d should be on futher right\n", array[i]);
+                            }
 
-                    printf("\n======================================================\n");
+                            printf("\n======================================================\n");
+                        }
+                    }
                 }
             }
         }
@@ -215,9 +306,10 @@ void rightInput_wrongPos(int array[], int inputArray[], int digits)
 }
 
 // To print the hidden number to find
-void question(int array[], int digits, int perfectPosition[], int k, int inputArray[])
+void question(int array[], int digits, int perfectPosition[], int k, int inputArray[], int NeedChanges[], int *n)
 {
     int p = 0;
+    int g = 0;
 
     for(int i = 0; i < digits; i++)
     {
@@ -232,21 +324,29 @@ void question(int array[], int digits, int perfectPosition[], int k, int inputAr
         else
         {
             printf(" * ");
+            NeedChanges[g] = i;
+            g++;
         }
     }
+
+    *n = g;
 }
 
-void mainGame(int num, int array[], int difficulty, int digits, int k, int input, int inputArray[], int perfectPosition[])
+void mainGame(int num, int array[], int difficulty, int digits, int k, int input, int inputArray[], int perfectPosition[], int *highscore)
 {
     int lives = 0;
+    int fulllives;
     k = 0;
+    int n = 0;
+    int NeedChanges[10];
     srand(time(NULL));
 
-    selectDifficulty(&difficulty, &lives);
+    selectDifficulty(&difficulty, &fulllives);
+    lives = fulllives;
     randomizer(&difficulty, &num, array, &digits);
 
     printf("\n\n");
-    question(array, digits, perfectPosition, k, inputArray);
+    question(array, digits, perfectPosition, k, inputArray, NeedChanges, &n);
 
 // --------------------------------------------------------------
     printf("\n\n");
@@ -265,16 +365,16 @@ void mainGame(int num, int array[], int difficulty, int digits, int k, int input
         perfectInput(array, inputArray, digits, perfectPosition, &k);
 
         printf("\nAfter Input:");
-        question(array, digits, perfectPosition, k, inputArray);
+        question(array, digits, perfectPosition, k, inputArray, NeedChanges, &n);
 
         if(input != num)
         {
-            rightInput_wrongPos(array, inputArray, digits);
+            rightInput_wrongPos(array, inputArray, digits, NeedChanges, n);
 
             for(int i = 0; i < 10; i++)
             {
-                inputArray[i] = 0;
-                perfectPosition[i] = 0;
+                inputArray[i] = '\0';
+                perfectPosition[i] = '\0';
             }
         }
 
@@ -290,6 +390,8 @@ void mainGame(int num, int array[], int difficulty, int digits, int k, int input
         printf("\n\n========================\n\n");
         printf("\n\tYou Lose\t\n");
         printf("\n\n========================\n\n");
+
+        printf("\nYour score is: 0\n\n");
     }
     else
     {
@@ -297,15 +399,26 @@ void mainGame(int num, int array[], int difficulty, int digits, int k, int input
         printf("\n\n========================\n\n");
         printf("\n\tYou Won\t\n");
         printf("\n\n========================\n\n");
+
+        printf("\nYour score is: %d\n\n", ((lives + 1) * 10));
+
+        if(lives < *highscore)
+        {
+            *highscore = (lives + 1) * 10;
+            FILE *fr;
+            fr = fopen("score.txt", "w");
+            fprintf(fr, "%d", *highscore);
+            fclose(fr);
+        }
     }
 }
-
 int main()
 {
     int num, array[10], difficulty, digits, k;
     int input, inputArray[10];
     int perfectPosition[10];
     char ch;
+    int highscore = 100;
 
     printf("\n\n\t\tWELCOME\t\n\n");
     printf("\nGame rule are simple here: \n");
@@ -320,11 +433,28 @@ int main()
     printf("\n\nHere -> ");
     getchar();
     system("cls");
-    
-    mainGame(num, array, difficulty, digits, k, input, inputArray, perfectPosition);
 
-    printf("\n\nEnter any character to quit: ");
-    scanf("\n%c", &ch);
+    while(1)
+    {
+        system("cls");
+        mainGame(num, array, difficulty, digits, k, input, inputArray, perfectPosition, &highscore);
+    
+        printf("Your highscore is: ");
+        FILE *fr;
+        int score;
+        fr = fopen("score.txt", "r");
+        fscanf(fr, "%d", &score);
+        printf("%d\n", score);
+        fclose(fr);
+
+        printf("\n\nEnter character q to quit or any other character to play again: ");
+        scanf("\n%c", &ch);
+
+        if(ch == 'q')
+        {
+            return 0;
+        }
+    }
 
     return 0;
 }
