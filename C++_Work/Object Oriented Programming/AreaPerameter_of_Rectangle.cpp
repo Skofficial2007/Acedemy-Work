@@ -9,24 +9,25 @@ Also, create a static member variable to keep track of the number of rectangle o
 class Rectangle
 {
     int length, breath, area, perameter;
-    public:
-        static int count;
-        Rectangle(int length, int breath)
-        {
-            this->length = length;
-            this->breath = breath;
-            count++;
-        }
-        int Area()
-        {
-            area = length * breath;
-            std::cout << "The Area of the rectangle is: " << area << std::endl;
-        }
-        int Perameter()
-        {
-            perameter = 2 * (length + breath);
-            std::cout << "The Perameter of the rectangle is: " << perameter << std::endl;
-        }
+
+public:
+    static int count;
+    Rectangle(int length, int breath)
+    {
+        this->length = length;
+        this->breath = breath;
+        count++;
+    }
+    int Area()
+    {
+        area = length * breath;
+        std::cout << "The Area of the rectangle is: " << area << std::endl;
+    }
+    int Perameter()
+    {
+        perameter = 2 * (length + breath);
+        std::cout << "The Perameter of the rectangle is: " << perameter << std::endl;
+    }
 };
 
 int Rectangle::count = 0;
